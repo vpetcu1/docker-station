@@ -1,17 +1,16 @@
 operation=$1
 case $operation in 
 	start)
-        sudo ./drive list
         if [ ! -f "mysql.zip" ]; then
             ./download.sh mysql.zip
         fi
         if [ ! -d "mysql" ]; then
             unzip mysql.zip
         fi
-        if [ ! -d "bekaert-deslee" ]; then
-            mkdir bekaert- deslee
+        if [ ! -d ${PROJECT} ]; then
+            install.sh            
         fi
-        sudo COMPOSE_PROJECT_NAME=${PROJECT} docker-compose up
+        sudo COMPOSE_PROJECT_NAME=${PROJECT} docker-compose up --remove-orphans
 		;;
 	stop)
 		sudo docker-compose down

@@ -1,5 +1,5 @@
 #!/bin/bash
-IMAGE_NAME="vpetcu1/x2go-mate-full-"
+IMAGE_NAME="vpetcu1/x2go-mate-"
 source ./.env
 if [ -z "${TAG}" ] || [ -z "${PROJECT}" ]; then
     echo "No TAG or PROJECT specified"

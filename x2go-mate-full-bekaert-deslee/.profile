@@ -26,13 +26,11 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-export SOFTWARE_BASE_PATH="/work/bekaert-deslee"
+export SOFTWARE_BASE_PATH="~/${PROJECT}/install"
 
-export TOOL_PATH=$SOFTWARE_BASE_PATH/tools
-export ECLIPSE_HOME=$TOOL_PATH/eclipse
-export GLASSFISH_HOME=$TOOL_PATH/glassfish3
-export ECLIPSE_WORKSPACE=$HOME/bekaert-deslee/eclipse-workspace
-export M2_HOME=$TOOL_PATH/apache-maven
+export ECLIPSE_HOME="$SOFTWARE_BASE_PATH/eclipse"
+export ECLIPSE_WORKSPACE="$SOFTWARE_BASE_PATH/eclipse-workspace"
+export M2_HOME="$SOFTWARE_BASE_PATH/apache-maven"
 export M2_REPO=$SOFTWARE_BASE_PATH/.m2/repository
-export PATH=$M2_HOME/bin:$SOFTWARE_BASE_PATH/bin:$PATH
+export PATH=$ECLIPSE_WORKSPACE:$M2_HOME/bin:$SOFTWARE_BASE_PATH/bin:$PATH
 export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"

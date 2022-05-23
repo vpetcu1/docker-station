@@ -26,6 +26,29 @@ RUN apt-get upgrade -y
 #RUN wget https://downloads.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}}-bin.tar.gz -P /
 #RUN tar -xvzf apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
+# Declare constants
+ENV NODE_VERSION 12.22.0
+
+# Replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# Install pre-reqs
+RUN apt-get update
+RUN apt-get -y install curl build-essential
+
+USER $REMOTE_USER
+
+# Install NVM
+RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+
+ENV NVM_DIR="/home/$REMOTE_USER/$PROJECT/install/.nvm"
+
+# Install NODE
+RUN source ~/.nvm/nvm.sh; \
+    nvm install $NODE_VERSION; \
+    nvm use --delete-prefix $NODE_VERSION;
+    
+USER root
 
 #clean up
 RUN rm -rf /tmp/*

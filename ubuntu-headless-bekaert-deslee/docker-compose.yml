@@ -6,8 +6,8 @@ services:
     image: mysql:5.7
     container_name: "mysql-${PROJECT}"
     volumes:
-      - ./mysql/data/:/var/lib/mysql
-      - ./mysql/configuration/conf.d:/etc/mysql/conf.d
+      - ../x2go-mate-full-bekaert-deslee/mysql/data/:/var/lib/mysql
+      - ../x2go-mate-full-bekaert-deslee//mysql/configuration/conf.d:/etc/mysql/conf.d
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: myrootsql!
@@ -18,15 +18,16 @@ services:
     ports:
       - "3306:3306"
 
-  x2go-mate:
-    image: "vpetcu1/x2go-mate-${PROJECT}:${TAG}"
-    container_name: "x2go-mate-${PROJECT}"
+  ubuntu-headless:
+    image: "vpetcu1/ubuntu-headless:${TAG}"
+    container_name: "ubuntu-headless-${PROJECT}"
     restart: always
     ports:
       - "24:22"
       - "8080:8080"
+      - "5005:5005"
     volumes:
-      - "./${PROJECT}/:/home/desktop/${PROJECT}/"
+      - "../x2go-mate-full-bekaert-deslee/${PROJECT}/:/home/desktop/${PROJECT}/"
       - /var/run/docker.sock:/var/run/docker.sock
 #      - "home:/home/desktop"
       - "./home/:/home/desktop"

@@ -11,10 +11,10 @@ services:
       - "4502:4502"
       - "80:80"
     volumes:
-      - "./${PROJECT}/:/home/desktop/${PROJECT}/"
+#      - "./${PROJECT}/:/home/desktop/${PROJECT}/"
       - /var/run/docker.sock:/var/run/docker.sock
 #      - "home:/home/desktop"
-      - "./home/:/home/desktop"
+#      - "./home/:/home/desktop"
     shm_size: '2gb'
     privileged: true
 

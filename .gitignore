@@ -1,7 +1,12 @@
 x2go-mate-full-bekaert-deslee/bekaert-deslee-dxp.zip
+x2go-mate-full-bekaert-deslee/home/
 x2go-mate-full-bekaert-deslee/mysql.zip
 x2go-mate-full-bekaert-deslee/bekaert-deslee/*
-x2go-mate-full-bekaert-deslee/mysql/*
-x2go-mate-full-bekaert-deslee/.gd/*
-x2go-mate-full-qteam/qteam/*
-x2go-mate-full-qteam/qteam/.gd/*
+x2go-mate-full-bekaert-deslee/mysql/
+x2go-mate-full-bekaert-deslee/.gd/
+x2go-mate-full-qteam/qteam/
+x2go-mate-full-qteam/home/
+x2go-mate-full-qteam/qteam/.gd/
+x2go-headless-bekaert-deslee/home/
+ubuntu-headless-bekaert-deslee/home/
+ubuntu-headless-qteam/home/

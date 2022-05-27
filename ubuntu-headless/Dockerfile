@@ -62,6 +62,7 @@ RUN chmod +x /install-docker.sh
 RUN /install-docker.sh
 
 ENV NODE_VERSION lts/fermium
+ENV NVM_DIR="/home/$REMOTE_USER/$PROJECT/install/.nvm"
 
 USER $REMOTE_USER
 # Install NVM

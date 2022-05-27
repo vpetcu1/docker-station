@@ -7,7 +7,7 @@ services:
     container_name: "mysql-${PROJECT}"
     volumes:
       - ../x2go-mate-full-bekaert-deslee/mysql/data/:/var/lib/mysql
-      - ../x2go-mate-full-bekaert-deslee//mysql/configuration/conf.d:/etc/mysql/conf.d
+      - ../x2go-mate-full-bekaert-deslee/mysql/configuration/conf.d:/etc/mysql/conf.d
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: myrootsql!

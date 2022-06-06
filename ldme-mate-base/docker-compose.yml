@@ -3,14 +3,20 @@ version: '3.3'
 services:
 
   x2go-mate:
-    image: "vpetcu1/x2go-mate-${PROJECT}:${TAG}"
-    container_name: "x2go-mate-${PROJECT}"
+    image: "vpetcu1/ldme-mate-base:${TAG}"
+    container_name: "${PROJECT}"
     restart: always
+    hostname: ${PROJECT}
+    environment:
+    - PASSWORD=password
+    - USER=desktop
+    cap_add:
+    - SYS_PTRACE
+    stdin_open: true
+    tty: true
     ports:
-      - "23:22"
-      - "4502:4502"
-      - "80:80"
-      - "4001:4000"
+      - "25:22"
+      - "4005:4000/tcp"
     volumes:
 #      - "./${PROJECT}/:/home/desktop/${PROJECT}/"
       - /var/run/docker.sock:/var/run/docker.sock
@@ -18,6 +24,3 @@ services:
 #      - "./home/:/home/desktop"
     shm_size: '2gb'
     privileged: true
-
-volumes:
-  home:

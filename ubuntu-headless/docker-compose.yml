@@ -7,9 +7,10 @@ services:
     container_name: "ubuntu-headless-${PROJECT}"
     restart: always
     ports:
-      - "23:22"
-      - "4502:4502"
-      - "80:80"
+      - "24:22"
+      - "4503:4502"
+      - "81:80"
+      - "4001:4000"
     volumes:
 #      - "./${PROJECT}/:/home/desktop/${PROJECT}/"
       - /var/run/docker.sock:/var/run/docker.sock

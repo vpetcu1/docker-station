@@ -6,8 +6,8 @@ services:
     image: mysql:5.7
     container_name: "mysql-${PROJECT}"
     volumes:
-      - ../x2go-mate-full-bekaert-deslee/mysql/data/:/var/lib/mysql
-      - ../x2go-mate-full-bekaert-deslee/mysql/configuration/conf.d:/etc/mysql/conf.d
+      - ./mysql/data/:/var/lib/mysql
+      - ./mysql/configuration/conf.d:/etc/mysql/conf.d
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: myrootsql!
@@ -32,14 +32,14 @@ services:
     tty: true
     ports:
       - "24:22"
+      - "8080:8080"
       - "4004:4000/tcp"
     volumes:
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
-      - "../x2go-mate-full-bekaert-deslee/${PROJECT}/:/home/desktop/${PROJECT}/"
+      - "./${PROJECT}/:/home/desktop/${PROJECT}/"
       - /var/run/docker.sock:/var/run/docker.sock
-#      - "home:/home/desktop"
-      - "./home/:/home/desktop"
+      - "./home:/home/desktop"
     shm_size: '2gb'
     privileged: true
     links: 

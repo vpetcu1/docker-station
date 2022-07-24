@@ -28,5 +28,6 @@ fi
 echo download called with folder=$folder and option=$option
 . ./$folder/.env
 
-./drive pull -ignore-checksum=false -quiet docker-station/$PROJECT/$option
-mv docker-station/$PROJECT/$option backup/download/$folder/$option
+./drive pull -ignore-checksum=false -quiet docker-station/$folder/$option
+mkdir -p backup/download/$folder/
+mv docker-station/$folder/$option backup/download/$folder/$option

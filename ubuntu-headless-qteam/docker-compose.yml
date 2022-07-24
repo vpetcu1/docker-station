@@ -5,7 +5,7 @@ services:
   ubuntu-headless:
     image: "vpetcu1/ubuntu-headless:${TAG}"
     container_name: "ubuntu-headless-${PROJECT}"
-    restart: always
+    restart: no
     ports:
       - "23:22"
       - "4502:4502"

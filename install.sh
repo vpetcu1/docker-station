@@ -3,7 +3,7 @@ unfold(){
 	folder=$1
 	operation=$2
     echo "unzip called with params: $@"
-    unzip -qq backup/download/$folder/$operation.zip -d $folder/
+    unzip -qq backup/download/$folder/$operation.zip -d .
     rm -rf backup/download/$folder/*
 }
 

@@ -1,6 +1,0 @@
-#!/usr/bin/env xdg-open
-[Desktop Entry]
-Name=Snowflake SSH client
-Exec=/usr/bin/snowflake
-Icon=/opt/snowflake/snowflake-logo.png
-Type=Application

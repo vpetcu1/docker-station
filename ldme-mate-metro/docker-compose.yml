@@ -1,0 +1,119 @@
+version: '3.3'
+
+services:
+
+  mysql:
+    image: mysql:8.1
+    container_name: "mysql-${PROJECT}"
+    volumes:
+      - ./mysql/data/:/var/lib/mysql
+      - ./mysql/configuration/conf.d:/etc/mysql/conf.d
+    restart: no
+    environment:
+      MYSQL_ROOT_PASSWORD: Romania01&
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: metro
+      MYSQL_USER: vpetcu1
+      MYSQL_PASSWORD: Romania01&
+    ports:
+      - "3306:3306"
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  # Elasticsearch Docker Images: https://www.docker.elastic.co/
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.1
+    container_name: elasticsearch
+    environment: ['ES_JAVA_OPTS=-Xms2g -Xmx2g','bootstrap.memory_lock=true','discovery.type=single-node','xpack.security.enabled=false', 'xpack.security.enrollment.enabled=false']
+   # environment:
+    #  - xpack.security.enabled=false
+    #  - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./elasticsearch:/usr/share/elasticsearch/data
+    restart: no
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+  #kibana:
+   # container_name: kibana
+    #image: docker.elastic.co/kibana/kibana:7.4.0
+    #environment:
+     # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    #ports:
+      #- 5601:5601
+    #depends_on:
+      #- elasticsearch
+
+  zookeeper:
+    image: strimzi/kafka:0.20.1-kafka-2.6.0
+    command: [
+        "sh", "-c",
+        "bin/zookeeper-server-start.sh config/zookeeper.properties"
+    ]
+    ports:
+      - "2181:2181"
+    environment:
+      LOG_DIR: /tmp/logs
+
+  kafka:
+    image: strimzi/kafka:0.20.1-kafka-2.6.0
+    container_name: kafka
+    command: [
+        "sh", "-c",
+        "bin/kafka-server-start.sh config/server.properties --override listeners=$${KAFKA_LISTENERS} --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT}"
+    ]
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      LOG_DIR: "/tmp/logs"
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+
+  ldme-mate-base:
+    image: "vpetcu1/ldme-mate-base:${TAG}"
+    container_name: "${PROJECT}"
+    hostname: ${PROJECT}
+    restart: no
+    environment:
+    - PASSWORD=password
+    - USER=desktop
+    cap_add:
+    - SYS_PTRACE
+    stdin_open: true
+    tty: true
+    depends_on:
+      - elasticsearch
+      - kafka
+      - mysql
+    ports:
+      - "24:22"
+      - "4502:4502"
+      - "80:80"
+      - "3000:3000"
+      - "4004:4000"
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "./${PROJECT}/:/home/desktop/${PROJECT}/"
+      - "../share/:/home/desktop/share/"
+      - /var/run/docker.sock:/var/run/docker.sock
+      - "./home/:/home/desktop"
+    shm_size: '2gb'
+    privileged: true
+    links: 
+      - "mysql:database"
+      - "elasticsearch:elasticsearch"
+      - "kafka:kafka"

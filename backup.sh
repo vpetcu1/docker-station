@@ -4,7 +4,7 @@ fold(){
     operation=$2
     mkdir -p backup/$folder/upload
     echo "zip called with params: $@"
-    zip -r -qq backup/$folder/upload/$operation.zip  $folder/$operation/
+    zip --symlinks -r -qq backup/$folder/upload/$operation.zip  $folder/$operation/
 }
 
 folder=""

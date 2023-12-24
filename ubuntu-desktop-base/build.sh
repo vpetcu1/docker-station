@@ -1,5 +1,5 @@
 #!/bin/bash
-IMAGE_NAME="vpetcu1/ldme-"
+IMAGE_NAME="vpetcu1/ubuntu-desktop-"
 source ./.env
 if [ -z "${TAG}" ] || [ -z "${PROJECT}" ]; then
     echo "No TAG or PROJECT specified"

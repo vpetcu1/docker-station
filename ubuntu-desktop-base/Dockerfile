@@ -1,12 +1,14 @@
-FROM linuxmintd/lmde6-amd64
+FROM ubuntu:22.04
 
-ENV DEBIAN_FRONTEND=noninteractive
+#ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Lisbon
 ENV DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
 ADD entrypoint.sh /entrypoint.sh
 
 #Generic packages
-RUN apt-get update && apt-get install --no-install-recommends -y software-properties-common build-essential libpython3-dev fonts-liberation xdg-utils dbus libdbus-1-dev dbus-x11 nano pulseaudio curl wget libxext-dev sudo gpg-agent libxrender-dev libxtst-dev supervisor htop apt-transport-https wget openssh-server fuse libfuse2
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install --no-install-recommends -y software-properties-common build-essential libpython3-dev fonts-liberation xdg-utils dbus libdbus-1-dev dbus-x11 nano pulseaudio curl wget libxext-dev sudo gpg-agent libxrender-dev libxtst-dev supervisor htop apt-transport-https wget openssh-server tzdata keyboard-configuration libvulkan1 console-setup
     
 #Yarn and Node
 #RUN curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add - \
@@ -28,6 +30,10 @@ RUN apt-get update && apt-get install --no-install-recommends -y software-proper
 #Git and Git-Flow
 RUN apt-get install --no-install-recommends -y git libu2f-udev apt-utils
 
+#UBUNTU-DESKTOP
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt update -y && sudo apt install ubuntu-mate-desktop -y -q
+
 #Chrome
 RUN curl -fSL "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -o chrome.deb \
 	&& dpkg -i chrome.deb \
@@ -42,9 +48,6 @@ RUN curl -fSL "https://download.nomachine.com/download/8.8/Linux/nomachine_8.8.1
 	&& mkdir -p /usr/NX/scripts/userscripts \
 	&& mkdir -p /var/run/dbus
 
-#MATE
-RUN apt update -y && sudo apt install mate-desktop-environment mate-desktop-environment-extras -y
-
 #COPY userstartup.sh /usr/NX/scripts/userscripts/userstartup.sh
 #RUN chmod 777 /usr/NX/scripts/userscripts/*.sh
 
@@ -58,6 +61,7 @@ AvailableSessionTypes nxvfb,physical-desktop\n#EOF\n'\
 >> /usr/NX/etc/server.cfg
 
 #DefaultDesktopCommand "/usr/sbin/dbus-launch --exit-with-session startxfce4"\n\
+
 
 
 ENTRYPOINT ["/entrypoint.sh"]

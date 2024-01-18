@@ -4,6 +4,7 @@ case $operation in
         if [ ! -d ${PROJECT} ]; then
             mkdir -p ${PROJECT}
         fi
+        cp -R .init/ home/
         COMPOSE_PROJECT_NAME=${PROJECT} docker-compose up --remove-orphans --force-recreate &
 		;;
 	stop)

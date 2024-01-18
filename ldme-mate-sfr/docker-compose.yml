@@ -25,7 +25,7 @@ services:
       - "./${PROJECT}/:/home/desktop/${PROJECT}/"
       #- /var/run/docker.sock:/var/run/docker.sock
       - "./home/:/home/desktop"
-      - "./.init/:/home/desktop/.init/"
+      #- "./.init/:/home/desktop/.init/"
       - "./.profile/:/home/desktop/.profile"
     shm_size: '2gb'
     privileged: true

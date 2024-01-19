@@ -89,12 +89,16 @@ AvailableSessionTypes nxvfb,physical-desktop\n#EOF\n'\
 #DefaultDesktopCommand "/usr/sbin/dbus-launch --exit-with-session startxfce4"\n\
 
 #MySql Workbench
-RUN curl -fSL "https://cdn.mysql.com/archives/mysql-workbench/mysql-workbench-community_8.0.34-1ubuntu22.04_amd64.deb" -o mysql-workbench.deb \
-	&& dpkg -i mysql-workbench.deb \
-	&& rm mysql-workbench.deb
+#RUN curl -fSL "https://cdn.mysql.com/archives/mysql-workbench/mysql-workbench-community_8.0.34-1ubuntu22.04_amd64.deb" -o mysql-workbench.deb \
+#	&& dpkg -i mysql-workbench.deb \
+#	&& rm mysql-workbench.deb
 
+#sshpass
+RUN apt-get install sshpass -y
 
-RUN 
+#mysql-workbench
+RUN apt install snapd -y && snap install mysql-workbench-community
+
 COPY sudoers /etc/sudoers
 
 

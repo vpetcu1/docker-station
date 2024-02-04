@@ -1,4 +1,4 @@
-FROM linuxmintd/lmde6-amd64
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
@@ -32,9 +32,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y software-proper
 RUN apt-get install --no-install-recommends -y git libu2f-udev apt-utils
 
 #Chrome
-RUN curl -fSL "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -o chrome.deb \
-	&& dpkg -i chrome.deb \
-	&& rm chrome.deb
+#RUN curl -fSL "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -o chrome.deb \
+#	&& dpkg -i chrome.deb \
+#	&& rm chrome.deb
 
 #NoMachine
 RUN curl -fSL "https://download.nomachine.com/download/8.8/Linux/nomachine_8.8.1_1_amd64.deb" -o nomachine.deb \
@@ -46,7 +46,7 @@ RUN curl -fSL "https://download.nomachine.com/download/8.8/Linux/nomachine_8.8.1
 	&& mkdir -p /var/run/dbus
 
 #MATE
-RUN apt update -y && apt install mate-desktop-environment mate-desktop-environment-extras -y
+RUN apt update -y && apt install ubuntu-mate-desktop -y
 
 #rclone
 RUN curl -fSL "https://downloads.rclone.org/v1.65.0/rclone-v1.65.0-linux-amd64.deb" -o rclone.deb \
@@ -78,6 +78,7 @@ RUN apt-get update && \
 RUN curl -fSL "https://downloads.mongodb.com/compass/mongodb-compass_1.42.0_amd64.deb" -o mongodb-compass.deb \
 	&& dpkg -i mongodb-compass.deb \
 	&& rm mongodb-compass.deb
+
 
 #COPY userstartup.sh /usr/NX/scripts/userscripts/userstartup.sh
 #RUN chmod 777 /usr/NX/scripts/userscripts/*.sh

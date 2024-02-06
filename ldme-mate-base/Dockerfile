@@ -91,6 +91,12 @@ RUN echo '\n#Overwritten AvailableSessionTypes\n\
 AvailableSessionTypes nxvfb,physical-desktop\n#EOF\n'\
 >> /usr/NX/etc/server.cfg
 
+RUN echo '\n#Overwritten TCP Port\n\
+NXTCPPort 4004\n#EOF\n'\
+>> /usr/NX/etc/server.cfg
+
+RUN echo '\n#Overwritten UDP Port\n\
+NXUDPPort 4004\n#EOF\n'\
 #DefaultDesktopCommand "/usr/sbin/dbus-launch --exit-with-session startxfce4"\n\
 
 #MySql Workbench
